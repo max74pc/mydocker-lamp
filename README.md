@@ -7,9 +7,7 @@
  - Git >= 1.8
 
 ### Repository Dependencies
-- payment-service
-- attendance-service
-- pa-app
+- mymovies-app
 
 ### Installation
 Copy the environment from example and configure it:
@@ -19,7 +17,7 @@ $ cp .env.example .env
 Clone the associated projects and execute the commands:
 ```sh
 $ docker-compose up -d
-$ docker exec -it pa-app bash
+$ docker exec -it mymovies-app bash
 $ npm install
 ```
 Enter in Lumen containers and configure the environments.
@@ -32,12 +30,12 @@ $ [...]
 The first time it's necessary to add at the end of the "hosts" file: <br>
 (for Windows OS open c:\Windows\System32\Drivers\etc\hosts with Administrator privileges)
 ```sh
-127.0.0.1 attendance-service.local
-127.0.0.1 payment-service.local
+#127.0.0.1 attendance-service.local
+#127.0.0.1 payment-service.local
 ```
 To run the React App execute the commands:
 ```sh
-$ docker exec -it -d pa-app npm start
+$ docker exec -it -d mymovies-app npm start
 ```
 
 To rebuild Docker images:
@@ -47,9 +45,9 @@ $ docker-compose up -d --build
 
 ### Deploy
 By default, the docker-compose will expose:
- * http://attendance-service.local/ - Attendance Service
- * http://payment-service.local/ - Payment Service
- * http://localhost:3000 - PA App
+# * http://attendance-service.local/ - Attendance Service
+# * http://payment-service.local/ - Payment Service
+ * http://localhost:3000 - MyMovies App
 
 Verify the deployment by navigating in your preferred browser.
 
