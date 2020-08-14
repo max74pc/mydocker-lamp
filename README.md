@@ -62,3 +62,4 @@ $ docker exec -it <NAMES> bash
 Some containers are customized and the images are saved on Docker Hub or can be built with Dockerfile stored in the ".docker" folder.
 The images stored on DockerHub are updated automatically by pushing the relative project saved on GitLab <br>
 # mydocker-lamp
+# mymovies-app
