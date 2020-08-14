@@ -1,0 +1,62 @@
+version: "3.2"
+
+networks:
+  backend:
+  frontend:
+
+volumes:
+  dbdata:
+
+services:
+  mysql-db:
+    image: mysql:8
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    restart: on-failure
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - dbdata:/var/lib/mysql
+#      - .docker/mysql/configurations:/etc/mysql/conf.d
+#      - .docker/mysql/data:/docker-entrypoint-initdb.d
+    networks:
+      - backend
+
+  apache:
+    build:
+      context: .docker/apache
+    container_name: apache
+    ports:
+      - "88:80"
+    depends_on:
+      - php
+    volumes:
+      - ./../:/var/www/html/
+    networks:
+      - backend
+      - frontend
+
+  php:
+    build:
+      context: .docker/php
+    container_name: php
+    depends_on:
+      - payment-service
+      - attendance-service
+    volumes:
+      - ./../:/var/www/html/:cached
+    networks:
+      - backend
+
+  mymovies-app:
+    build:
+      context: .docker/react
+    container_name: mymovies-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./../mymovies-app/:/mymovies-app/
+    networks:
+      - frontend
